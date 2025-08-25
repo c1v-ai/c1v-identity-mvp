@@ -1,0 +1,21 @@
+name: Enforce Documentation Updates
+on:
+  pull_request:
+    types: [opened, synchronize]
+jobs:
+  check-docs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+      - name: Check for documentation updates
+        run: |
+          CHANGED_FILES=$(git diff --name-only origin/main...HEAD || true)
+          if echo "$CHANGED_FILES" | grep -E '\.(py|js|ts|tsx)$'; then
+            if ! echo "$CHANGED_FILES" | grep -E '(cursor-requirements|features|testing|CHANGELOG|back-end-guide)\.md$'; then
+              echo "❌ Code changes detected but no documentation updates found"
+              echo "Required: Update cursor-requirements.md, features.md, testing.md, back-end-guide.md and CHANGELOG.md"
+              exit 1
+            fi
+          fi
+          echo "✅ Documentation requirements satisfied"
