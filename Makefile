@@ -1,4 +1,4 @@
-.PHONY: install test run-app clean test-dq test-identity scaffold-contracts run-unify metrics-export
+.PHONY: install test run-app clean test-dq test-identity scaffold-contracts run-unify metrics-export deploy-notes
 
 export PYTHONPATH := src
 
@@ -33,3 +33,10 @@ clean:
 metrics-export:
 	@echo "Exporting metrics snapshot..."
 	@python -c "import pandas as pd; from src.dq_gate.gate import get_metrics; print(pd.DataFrame([get_metrics()]))"
+
+deploy-notes:
+	@echo "Push to GitHub and configure Streamlit Cloud:"
+	@echo "  - Repo: c1v-ai/c1v-identity-mvp"
+	@echo "  - Main file: src/demo/streamlit_app.py"
+	@echo "  - Secrets: APP_ENV, SLACK_WEBHOOK, JIRA_PROJECT, JIRA_ASSIGNEE_EMAIL"
+	@echo "  - Env vars: PYTHONPATH=src, ASKDATA_SIMULATE=1"

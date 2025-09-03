@@ -1,5 +1,8 @@
 import os, sys
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+from pathlib import Path
+# Ensure "src" is importable when running on Streamlit Cloud
+sys.path.append(str(Path(__file__).resolve().parents[1]))
 import json, time
 import pandas as pd
 import requests
@@ -254,7 +257,17 @@ with tab4:
             # Environment selection
             col1, col2 = st.columns(2)
             with col1:
-                env = st.selectbox("Environment", ["staging", "prod_week1", "prod"])
+                env_options = ["staging", "prod_week1", "prod"]
+                env_default = None
+                try:
+                    env_default = st.secrets.get("APP_ENV") if hasattr(st, "secrets") else None
+                except Exception:
+                    env_default = None
+                try:
+                    env_index = env_options.index(env_default) if env_default in env_options else 1
+                except Exception:
+                    env_index = 1
+                env = st.selectbox("Environment", env_options, index=env_index)
             
             with col2:
                 csv_path = st.text_input(
