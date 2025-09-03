@@ -1,0 +1,20 @@
+# DQ Gate Policy Configuration
+staging:
+  on_red: BLOCK
+  on_amber: BLOCK
+  on_green: PASS
+
+prod_week1:
+  on_red: WARN
+  on_amber: WARN
+  on_green: PASS
+
+prod:
+  on_red: BLOCK
+  on_amber: WARN
+  on_green: PASS
+
+default:
+  on_red: WARN
+  on_amber: WARN
+  on_green: PASS

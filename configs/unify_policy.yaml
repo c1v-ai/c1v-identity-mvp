@@ -1,0 +1,71 @@
+# Identity Unification Policy Configuration
+
+sources:
+  leads: data/synth/leads.csv
+  sales: data/synth/sales.csv
+  financial: data/synth/financial.csv
+
+# Map source columns to canonical names
+canonical_map:
+  leads:
+    id: entity_id
+    email: email
+    phone: phone
+    first: first_name
+    last: last_name
+    address: address
+    postal: zip
+    city: city
+    region: state
+    
+  sales:
+    id: entity_id
+    email: email
+    phone: phone
+    first: first_name
+    last: last_name
+    address: address
+    postal: zip
+    city: city
+    region: state
+    
+  financial:
+    id: entity_id
+    email: email
+    phone: phone
+    first: first_name
+    last: last_name
+    address: address
+    postal: zip
+    city: city
+    region: state
+
+# Blocking strategies to reduce comparison space
+blocking:
+  - email_domain_last4
+  - phone_last7
+  - name_fsa
+  - email_exact
+
+# Matching weights
+weights:
+  email_exact: 0.9
+  phone_exact: 0.7
+  name_address: 0.5
+  postal_match: 0.2
+
+# Decision thresholds
+thresholds:
+  auto_merge: 0.90
+  needs_review: 0.70
+
+# Survivorship rules
+survivorship:
+  email: prefer_non_null_most_recent
+  phone: prefer_non_null_most_recent
+  address: prefer_longest
+  name: prefer_first_seen
+  source_priority:
+    - sales
+    - leads
+    - financial

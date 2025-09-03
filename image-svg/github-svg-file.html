@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>C1V Platform Infrastructure</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        .container {
+            width: 100%;
+            max-width: 1400px;
+            padding: 20px;
+        }
+        svg {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        @keyframes dataFlow {
+            0% { opacity: 0; transform: translateY(20px); }
+            50% { opacity: 1; }
+            100% { opacity: 0; transform: translateY(-20px); }
+        }
+        .data-particle {
+            animation: dataFlow 3s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.8; }
+        }
+        .pulse-line {
+            animation: pulse 2s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <svg xmlns="http://www.w3.org/2000/svg" width="1400" height="900" viewBox="0 0 1400 900">
+            <!-- Definitions -->
+            <defs>
+                <!-- Gradients -->
+                <linearGradient id="baseGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#1e3a5f"/>
+                    <stop offset="100%" stop-color="#0f1f3a"/>
+                </linearGradient>
+                
+                <linearGradient id="cleanroomGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#2563EB"/>
+                    <stop offset="100%" stop-color="#1e40af"/>
+                </linearGradient>
+                
+                <linearGradient id="orchGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#14B8A6"/>
+                    <stop offset="100%" stop-color="#0d9488"/>
+                </linearGradient>
+                
+                <linearGradient id="modelGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#3B82F6"/>
+                    <stop offset="100%" stop-color="#2563EB"/>
+                </linearGradient>
+                
+                <linearGradient id="pillarGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stop-color="#2563EB"/>
+                    <stop offset="50%" stop-color="#14B8A6"/>
+                    <stop offset="100%" stop-color="#10B981"/>
+                </linearGradient>
+                
+                <!-- Glow effects -->
+                <filter id="glow">
+                    <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+                    <feMerge>
+                        <feMergeNode in="coloredBlur"/>
+                        <feMergeNode in="SourceGraphic"/>
+                    </feMerge>
+                </filter>
+                
+                <!-- Shadows -->
+                <filter id="dropShadow" x="-50%" y="-50%" width="200%" height="200%">
+                    <feGaussianBlur in="SourceAlpha" stdDeviation="4"/>
+                    <feOffset dx="0" dy="6" result="offsetblur"/>
+                    <feFlood flood-color="#000000" flood-opacity="0.3"/>
+                    <feComposite in2="offsetblur" operator="in"/>
+                    <feMerge>
+                        <feMergeNode/>
+                        <feMergeNode in="SourceGraphic"/>
+                    </feMerge>
+                </filter>
+                
+                <!-- Background pattern -->
+                <pattern id="grid" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
+                    <circle cx="2" cy="2" r="1" fill="#1e3a5f" opacity="0.3"/>
+                </pattern>
+            </defs>
+            
+            <!-- Background -->
+            <rect width="1400" height="900" fill="#0B1220"/>
+            <rect width="1400" height="900" fill="url(#grid)"/>
+            
+            <!-- Title with glow effect -->
+            <g filter="url(#glow)">
+                <text x="700" y="60" font-size="42" font-weight="700" fill="#F8FAFC" text-anchor="middle">c1v.ai Platform</text>
+                <text x="700" y="90" font-size="18" fill="#9CA3AF" text-anchor="middle">From messy data → governed AI apps without exposing PII</text>
+            </g>
+            
+            <!-- Base Layer - Data Sources -->
+            <g id="base-layer" transform="translate(700, 600)">
+                <!-- Top face -->
+                <path d="M -400,0 L 0,-231 L 400,0 L 0,231 Z" fill="url(#baseGrad)" filter="url(#dropShadow)"/>
+                <!-- Left face -->
+                <path d="M -400,0 L -400,40 L 0,271 L 0,231 Z" fill="#0a1628"/>
+                <!-- Right face -->
+                <path d="M 0,231 L 0,271 L 400,40 L 400,0 Z" fill="#0d1e36"/>
+                <!-- Edge text - positioned along left edge -->
+                <text transform="translate(-420, 25) rotate(-30)" font-size="14" font-weight="600" fill="#64748B" letter-spacing="2">
+                    DATA SOURCES • CRM • WEB/APP • ADS • SALES • SUPPORT
+                </text>
+            </g>
+            
+            <!-- Middle Layer - Data Cleanroom -->
+            <g id="cleanroom-layer" transform="translate(700, 520)">
+                <!-- Top face -->
+                <path d="M -350,0 L 0,-202 L 350,0 L 0,202 Z" fill="url(#cleanroomGrad)" filter="url(#dropShadow)"/>
+                <!-- Left face -->
+                <path d="M -350,0 L -350,35 L 0,237 L 0,202 Z" fill="#1e3a8a"/>
+                <!-- Right face -->
+                <path d="M 0,202 L 0,237 L 350,35 L 350,0 Z" fill="#1e40af"/>
+                <!-- Edge text - positioned along left edge -->
+                <text transform="translate(-370, 22) rotate(-30)" font-size="13" font-weight="600" fill="#94A3B8" letter-spacing="1.5">
+                    C1V DATA CLEANROOM • TOKENIZED ID GRAPH • PRIVACY GUARDRAILS
+                </text>
+            </g>
+            
+            <!-- Top Layer - Model Orchestrator -->
+            <g id="orchestrator-layer" transform="translate(700, 450)">
+                <!-- Top face -->
+                <path d="M -300,0 L 0,-173 L 300,0 L 0,173 Z" fill="url(#orchGrad)" filter="url(#dropShadow)"/>
+                <!-- Left face -->
+                <path d="M -300,0 L -300,30 L 0,203 L 0,173 Z" fill="#0d9488"/>
+                <!-- Right face -->
+                <path d="M 0,173 L 0,203 L 300,30 L 300,0 Z" fill="#059669"/>
+                <!-- Text on surface - this one stays on top since it's visible -->
+                <text x="0" y="6" font-size="12" font-weight="600" fill="#F8FAFC" text-anchor="middle" letter-spacing="1">
+                    MODEL ORCHESTRATOR • EVALUATION • RLHF / CONSTRAINTS
+                </text>
+            </g>
+            
+            <!-- Data Flow Particles -->
+            <g id="data-particles">
+                <!-- Particles flowing up from base to cleanroom -->
+                <circle cx="300" cy="580" r="2" fill="#14B8A6" class="data-particle" style="animation-delay: 0s;"/>
+                <circle cx="350" cy="570" r="2" fill="#14B8A6" class="data-particle" style="animation-delay: 0.5s;"/>
+                <circle cx="400" cy="560" r="2" fill="#14B8A6" class="data-particle" style="animation-delay: 1s;"/>
+                
+                <circle cx="900" cy="580" r="2" fill="#14B8A6" class="data-particle" style="animation-delay: 0.3s;"/>
+                <circle cx="950" cy="570" r="2" fill="#14B8A6" class="data-particle" style="animation-delay: 0.8s;"/>
+                <circle cx="1000" cy="560" r="2" fill="#14B8A6" class="data-particle" style="animation-delay: 1.3s;"/>
+                
+                <!-- Particles from cleanroom to orchestrator -->
+                <circle cx="500" cy="500" r="2" fill="#3B82F6" class="data-particle" style="animation-delay: 0.2s;"/>
+                <circle cx="550" cy="490" r="2" fill="#3B82F6" class="data-particle" style="animation-delay: 0.7s;"/>
+                <circle cx="600" cy="480" r="2" fill="#3B82F6" class="data-particle" style="animation-delay: 1.2s;"/>
+                
+                <circle cx="800" cy="500" r="2" fill="#3B82F6" class="data-particle" style="animation-delay: 0.4s;"/>
+                <circle cx="850" cy="490" r="2" fill="#3B82F6" class="data-particle" style="animation-delay: 0.9s;"/>
+                <circle cx="900" cy="480" r="2" fill="#3B82F6" class="data-particle" style="animation-delay: 1.4s;"/>
+            </g>
+            
+            <!-- Model Tiles with glow -->
+            <g id="model-tiles" transform="translate(700, 390)">
+                <!-- Anthropic -->
+                <g transform="translate(-250, 0)" filter="url(#glow)">
+                    <path d="M -40,0 L 0,-23 L 40,0 L 0,23 Z" fill="url(#modelGrad)" filter="url(#dropShadow)"/>
+                    <path d="M -40,0 L -40,15 L 0,38 L 0,23 Z" fill="#1e3a8a"/>
+                    <path d="M 0,23 L 0,38 L 40,15 L 40,0 Z" fill="#1e40af"/>
+                    <text x="0" y="3" font-size="10" fill="white" text-anchor="middle">Anthropic</text>
+                </g>
+                
+                <!-- OpenAI -->
+                <g transform="translate(-150, 0)" filter="url(#glow)">
+                    <path d="M -40,0 L 0,-23 L 40,0 L 0,23 Z" fill="url(#modelGrad)" filter="url(#dropShadow)"/>
+                    <path d="M -40,0 L -40,15 L 0,38 L 0,23 Z" fill="#1e3a8a"/>
+                    <path d="M 0,23 L 0,38 L 40,15 L 40,0 Z" fill="#1e40af"/>
+                    <text x="0" y="3" font-size="10" fill="white" text-anchor="middle">OpenAI</text>
+                </g>
+                
+                <!-- Llama -->
+                <g transform="translate(-50, 0)" filter="url(#glow)">
+                    <path d="M -40,0 L 0,-23 L 40,0 L 0,23 Z" fill="url(#modelGrad)" filter="url(#dropShadow)"/>
+                    <path d="M -40,0 L -40,15 L 0,38 L 0,23 Z" fill="#1e3a8a"/>
+                    <path d="M 0,23 L 0,38 L 40,15 L 40,0 Z" fill="#1e40af"/>
+                    <text x="0" y="3" font-size="10" fill="white" text-anchor="middle">Llama</text>
+                </g>
+                
+                <!-- Gemini -->
+                <g transform="translate(50, 0)" filter="url(#glow)">
+                    <path d="M -40,0 L 0,-23 L 40,0 L 0,23 Z" fill="url(#modelGrad)" filter="url(#dropShadow)"/>
+                    <path d="M -40,0 L -40,15 L 0,38 L 0,23 Z" fill="#1e3a8a"/>
+                    <path d="M 0,23 L 0,38 L 40,15 L 40,0 Z" fill="#1e40af"/>
+                    <text x="0" y="3" font-size="10" fill="white" text-anchor="middle">Gemini</text>
+                </g>
+                
+                <!-- Mistral -->
+                <g transform="translate(150, 0)" filter="url(#glow)">
+                    <path d="M -40,0 L 0,-23 L 40,0 L 0,23 Z" fill="url(#modelGrad)" filter="url(#dropShadow)"/>
+                    <path d="M -40,0 L -40,15 L 0,38 L 0,23 Z" fill="#1e3a8a"/>
+                    <path d="M 0,23 L 0,38 L 40,15 L 40,0 Z" fill="#1e40af"/>
+                    <text x="0" y="3" font-size="10" fill="white" text-anchor="middle">Mistral</text>
+                </g>
+                
+                <!-- Cohere -->
+                <g transform="translate(250, 0)" filter="url(#glow)">
+                    <path d="M -40,0 L 0,-23 L 40,0 L 0,23 Z" fill="url(#modelGrad)" filter="url(#dropShadow)"/>
+                    <path d="M -40,0 L -40,15 L 0,38 L 0,23 Z" fill="#1e3a8a"/>
+                    <path d="M 0,23 L 0,38 L 40,15 L 40,0 Z" fill="#1e40af"/>
+                    <text x="0" y="3" font-size="10" fill="white" text-anchor="middle">Cohere</text>
+                </g>
+            </g>
+            
+            <!-- Industry Pillars with glow -->
+            <g id="pillars">
+                <!-- Automotive -->
+                <g transform="translate(400, 320)" filter="url(#glow)">
+                    <path d="M -60,0 L 0,-35 L 60,0 L 0,35 Z" fill="url(#pillarGrad)" filter="url(#dropShadow)"/>
+                    <path d="M -60,0 L -60,120 L 0,155 L 0,35 Z" fill="#1e3a8a" opacity="0.9"/>
+                    <path d="M 0,35 L 0,155 L 60,120 L 60,0 Z" fill="#1e40af" opacity="0.9"/>
+                    <text x="0" y="-45" font-size="12" font-weight="600" fill="#F8FAFC" text-anchor="middle">AUTOMOTIVE</text>
+                    <text x="0" y="-30" font-size="9" fill="#10B981" text-anchor="middle">APP</text>
+                </g>
+                
+                <!-- Finance -->
+                <g transform="translate(520, 300)" filter="url(#glow)">
+                    <path d="M -60,0 L 0,-35 L 60,0 L 0,35 Z" fill="url(#pillarGrad)" filter="url(#dropShadow)"/>
+                    <path d="M -60,0 L -60,110 L 0,145 L 0,35 Z" fill="#1e3a8a" opacity="0.9"/>
+                    <path d="M 0,35 L 0,145 L 60,110 L 60,0 Z" fill="#1e40af" opacity="0.9"/>
+                    <text x="0" y="-45" font-size="12" font-weight="600" fill="#F8FAFC" text-anchor="middle">FINANCE</text>
+                    <text x="0" y="-30" font-size="9" fill="#10B981" text-anchor="middle">APP</text>
+                </g>
+                
+                <!-- Insurance -->
+                <g transform="translate(640, 290)" filter="url(#glow)">
+                    <path d="M -60,0 L 0,-35 L 60,0 L 0,35 Z" fill="url(#pillarGrad)" filter="url(#dropShadow)"/>
+                    <path d="M -60,0 L -60,115 L 0,150 L 0,35 Z" fill="#1e3a8a" opacity="0.9"/>
+                    <path d="M 0,35 L 0,150 L 60,115 L 60,0 Z" fill="#1e40af" opacity="0.9"/>
+                    <text x="0" y="-45" font-size="12" font-weight="600" fill="#F8FAFC" text-anchor="middle">INSURANCE</text>
+                    <text x="0" y="-30" font-size="9" fill="#10B981" text-anchor="middle">APP</text>
+                </g>
+                
+                <!-- Retail -->
+                <g transform="translate(760, 300)" filter="url(#glow)">
+                    <path d="M -60,0 L 0,-35 L 60,0 L 0,35 Z" fill="url(#pillarGrad)" filter="url(#dropShadow)"/>
+                    <path d="M -60,0 L -60,105 L 0,140 L 0,35 Z" fill="#1e3a8a" opacity="0.9"/>
+                    <path d="M 0,35 L 0,140 L 60,105 L 60,0 Z" fill="#1e40af" opacity="0.9"/>
+                    <text x="0" y="-45" font-size="12" font-weight="600" fill="#F8FAFC" text-anchor="middle">RETAIL</text>
+                    <text x="0" y="-30" font-size="9" fill="#10B981" text-anchor="middle">APP</text>
+                </g>
+                
+                <!-- E-Commerce -->
+                <g transform="translate(880, 310)" filter="url(#glow)">
+                    <path d="M -60,0 L 0,-35 L 60,0 L 0,35 Z" fill="url(#pillarGrad)" filter="url(#dropShadow)"/>
+                    <path d="M -60,0 L -60,100 L 0,135 L 0,35 Z" fill="#1e3a8a" opacity="0.9"/>
+                    <path d="M 0,35 L 0,135 L 60,100 L 60,0 Z" fill="#1e40af" opacity="0.9"/>
+                    <text x="0" y="-45" font-size="12" font-weight="600" fill="#F8FAFC" text-anchor="middle">E-COMMERCE</text>
+                    <text x="0" y="-30" font-size="9" fill="#10B981" text-anchor="middle">APP</text>
+                </g>
+                
+                <!-- Legal -->
+                <g transform="translate(1000, 320)" filter="url(#glow)">
+                    <path d="M -60,0 L 0,-35 L 60,0 L 0,35 Z" fill="url(#pillarGrad)" filter="url(#dropShadow)"/>
+                    <path d="M -60,0 L -60,95 L 0,130 L 0,35 Z" fill="#1e3a8a" opacity="0.9"/>
+                    <path d="M 0,35 L 0,130 L 60,95 L 60,0 Z" fill="#1e40af" opacity="0.9"/>
+                    <text x="0" y="-45" font-size="12" font-weight="600" fill="#F8FAFC" text-anchor="middle">LEGAL</text>
+                    <text x="0" y="-30" font-size="9" fill="#10B981" text-anchor="middle">APP</text>
+                </g>
+            </g>
+            
+            <!-- Animated connection lines from models to orchestrator -->
+            <g id="connections">
+                <line x1="450" y1="390" x2="450" y2="420" stroke="#14B8A6" stroke-width="2" class="pulse-line"/>
+                <line x1="550" y1="390" x2="550" y2="420" stroke="#14B8A6" stroke-width="2" class="pulse-line" style="animation-delay: 0.3s;"/>
+                <line x1="650" y1="390" x2="650" y2="420" stroke="#14B8A6" stroke-width="2" class="pulse-line" style="animation-delay: 0.6s;"/>
+                <line x1="750" y1="390" x2="750" y2="420" stroke="#14B8A6" stroke-width="2" class="pulse-line" style="animation-delay: 0.9s;"/>
+                <line x1="850" y1="390" x2="850" y2="420" stroke="#14B8A6" stroke-width="2" class="pulse-line" style="animation-delay: 1.2s;"/>
+                <line x1="950" y1="390" x2="950" y2="420" stroke="#14B8A6" stroke-width="2" class="pulse-line" style="animation-delay: 1.5s;"/>
+            </g>
+            
+            <!-- Performance Metrics -->
+            <g id="metrics" opacity="0.8">
+                <text x="100" y="850" font-size="11" fill="#64748B">Latency: &lt;100ms</text>
+                <text x="250" y="850" font-size="11" fill="#64748B">Privacy: GDPR/CCPA</text>
+                <text x="420" y="850" font-size="11" fill="#64748B">Scale: 10M+ queries/day</text>
+                <text x="600" y="850" font-size="11" fill="#64748B">Accuracy: 99.7%</text>
+            </g>
+        </svg>
+    </div>
+</body>
+</html>
+

@@ -1,0 +1,33 @@
+# Role-Based Access Control
+roles:
+  admin:
+    pii_view: true
+    edit_contracts: true
+    view_raw_data: true
+    
+  engineer:
+    pii_view: false
+    edit_contracts: true
+    view_raw_data: false
+    
+  analyst:
+    pii_view: false
+    edit_contracts: false
+    view_raw_data: false
+    
+  agent:
+    pii_view: false
+    edit_contracts: false
+    view_raw_data: false
+    
+  viewer:
+    pii_view: false
+    edit_contracts: false
+    view_raw_data: false
+
+masking:
+  email: "x***@{domain}"
+  phone: "***-***-{last4}"
+  address: "{city}, {region}"
+  ssn: "XXX-XX-{last4}"
+  name: "{first_initial}***"

@@ -1,0 +1,83 @@
+version: 1.0.0
+source: sales
+owner: sales-owner@company.com
+industry: generic
+schema_ref: generic@1.0.0
+freshness_slo_minutes: 60
+required_fields:
+- id
+schema:
+  id:
+    type: string
+    pii: false
+    nullable: false
+  entity_id:
+    type: integer
+    pii: false
+    nullable: false
+  first_name:
+    type: string
+    pii: true
+    nullable: false
+    consent_scope: marketing
+  last_name:
+    type: string
+    pii: true
+    nullable: false
+    consent_scope: marketing
+  email:
+    type: email
+    pii: true
+    nullable: false
+    consent_scope: marketing
+  phone:
+    type: phone
+    pii: true
+    nullable: false
+    consent_scope: marketing
+  address:
+    type: string
+    pii: true
+    nullable: false
+    consent_scope: marketing
+  city:
+    type: string
+    pii: false
+    nullable: false
+  state:
+    type: string
+    pii: false
+    nullable: false
+  zip:
+    type: postal
+    pii: true
+    nullable: false
+  country:
+    type: string
+    pii: false
+    nullable: false
+  account:
+    type: string
+    pii: false
+    nullable: false
+  order_id:
+    type: string
+    pii: false
+    nullable: false
+  order_value:
+    type: number
+    pii: false
+    nullable: false
+  order_date:
+    type: timestamp
+    pii: false
+    nullable: false
+quality_rules:
+  max_null_pct:
+    id: 5.0
+severity_map:
+  schema_mismatch: RED
+  missing_consent: RED
+  null_pct_exceeded: AMBER
+  duplicate_id: RED
+  type_mismatch: RED

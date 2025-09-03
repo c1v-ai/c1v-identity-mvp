@@ -1,0 +1,169 @@
+cd c1v-identity-mvp
+cat <<'YAML' > context.yaml
+system: "C1V.ai Core"
+
+includes:
+  INC-AUTH: "Authenticate & authorize; record purpose code"
+  INC-CONSENT: "Consent/residency enforcement; masking"
+  INC-TOKEN: "Tokenize/minimize identifiers on egress"
+  INC-APPROVE: "Dual-control for risky actions"
+  INC-CATALOG: "Catalog & lineage lookup"
+  INC-DQR: "Data contracts, quality, schema checks"
+  INC-ALERT: "Threshold/trend alerts with routes/quiet hours"
+  INC-SLA: "SLA/heatmap for promises (AHT/OTIF/OTDP)"
+  INC-SCENARIO: "Digital twin scenario simulation"
+  INC-DECISION: "Decision log (who/why/expiry)"
+  INC-LEDGER: "PSP/GL write and reconciliation"
+  INC-HR: "Capacity/roster gate (skills/OT)"
+
+extends:
+  EXT-CRISIS: "Crisis throttle / brand-safety freeze"
+  EXT-STRAT-OVR: "Strategic override (temporary micro-bands)"
+  EXT-FAIR-ALLOC: "Fairness allocation across partners/stores"
+  EXT-GOODWILL: "Goodwill credit bands for SLA breaches"
+  EXT-RESIDENCY: "Region routing & clean-room handling"
+
+departments:
+  Marketing:
+    actors: [CMO, Growth Lead, Campaign Manager]
+    use_cases:
+      - "Launch privacy-safe campaign"
+      - "Budget & audience optimization"
+      - "Experiment orchestrator"
+      - "Brand-safety gate"
+      - "Lifecycle journeys"
+  Sales_DealDesk:
+    actors: [Sales Director, Deal Desk Analyst]
+    use_cases:
+      - "Deal/plan configuration"
+      - "Competitor match micro-bands"
+      - "Trade-in valuation guard"
+      - "Contract QA & funding"
+      - "Delivery commit & slotting"
+  Support_CX_Aftersales:
+    actors: [CX Lead, Support Agent, Service Manager]
+    use_cases:
+      - "Resolve case with action"
+      - "RMA/Refund (dual-control)"
+      - "Service scheduling & parts"
+      - "Proactive fault outreach"
+      - "NPS recovery"
+  Operations_Supply:
+    actors: [COO, Supply Planner, Inventory Manager]
+    use_cases:
+      - "Replenishment & allocation"
+      - "Carrier/lane reroute"
+      - "Quality quarantine/recall"
+      - "Demand-shock handling"
+      - "Promise accuracy"
+  Finance:
+    actors: [CFO, AR Lead, FP&A Analyst]
+    use_cases:
+      - "Collections & cash application"
+      - "Chargeback/risk routing"
+      - "Co-op budget control"
+      - "Promotion ROI audit"
+      - "Revenue-recognition guard"
+  HR_Workforce:
+    actors: [HRBP, Workforce Planner]
+    use_cases:
+      - "Capacity forecast"
+      - "Build roster"
+      - "Shift swaps"
+      - "Labor-rule enforcement"
+      - "OT bands"
+  Exec_Strategy:
+    actors: [CEO/GM, Strategy Lead]
+    use_cases:
+      - "Ask question (lineage)"
+      - "Target cascade"
+      - "Run scenarios"
+      - "Board pack"
+      - "Alerting & SLA review"
+  Risk_DigitalTwin:
+    actors: [Risk Officer, Strategy Analyst]
+    use_cases:
+      - "Ingest signals"
+      - "Stress test scenarios"
+      - "Estimate elasticities"
+      - "Set guardrails"
+      - "Publish guidance"
+  Privacy_First_Edge:
+    actors: [CPO, Security/IAM, Data Steward]
+    use_cases:
+      - "Author policy"
+      - "Assign roles"
+      - "Retention/residency"
+      - "Approve export"
+      - "Process DSAR"
+  Data_Platform:
+    actors: [Data Eng Lead, Source Owner, Cloud Ops]
+    use_cases:
+      - "Register source"
+      - "Validate contracts & ingest"
+      - "Run backfill / SLA manager"
+      - "Schema governance"
+      - "Cost/FinOps attribution"
+  AI_Models:
+    actors: [ML Lead, Data Scientist, MLOps]
+    use_cases:
+      - "Deliver features"
+      - "Train & register model"
+      - "Shadow/canary deploy"
+      - "Guardrails & safety"
+      - "Drift detection & rollback"
+  Activation_Visualization:
+    actors: [Channel Owners, BI Lead]
+    use_cases:
+      - "Tokenized export & caps"
+      - "Destination health & retries"
+      - "Dashboards & KPI service"
+      - "Row-level security"
+      - "Scheduled refresh & conversions"
+
+top10_cross_department:
+  - name: "Replenish & Allocate Inventory"
+    includes: [INC-SCENARIO, INC-SLA, INC-ALERT, INC-DECISION]
+    extends: [EXT-FAIR-ALLOC, EXT-CRISIS]
+    owners: [Operations_Supply, Finance, Marketing, HR_Workforce]
+  - name: "Deal/Plan Configuration & Approval"
+    includes: [INC-AUTH, INC-CONSENT, INC-DECISION, INC-ALERT]
+    extends: [EXT-STRAT-OVR, EXT-RESIDENCY]
+    owners: [Sales_DealDesk, Finance, Exec_Strategy]
+  - name: "Collections & Cash Application"
+    includes: [INC-TOKEN, INC-LEDGER, INC-ALERT, INC-DECISION]
+    extends: [EXT-CRISIS]
+    owners: [Finance, Support_CX_Aftersales]
+  - name: "Resolve Customer Case with Action"
+    includes: [INC-AUTH, INC-CATALOG, INC-APPROVE, INC-LEDGER, INC-ALERT]
+    extends: [EXT-GOODWILL]
+    owners: [Support_CX_Aftersales, Operations_Supply, Finance]
+  - name: "Launch Privacy-Safe Campaign"
+    includes: [INC-CONSENT, INC-TOKEN, INC-ALERT, INC-SLA]
+    extends: [EXT-CRISIS]
+    owners: [Marketing, Privacy_First_Edge, Activation_Visualization]
+  - name: "Promise Accuracy & Expectation Management"
+    includes: [INC-SLA, INC-ALERT, INC-DECISION]
+    extends: [EXT-GOODWILL, EXT-CRISIS]
+    owners: [Operations_Supply, Support_CX_Aftersales, Marketing]
+  - name: "Data Quality Gate on Ingestion"
+    includes: [INC-DQR, INC-CATALOG, INC-CONSENT]
+    extends: [EXT-RESIDENCY]
+    owners: [Data_Platform, Privacy_First_Edge, AI_Models]
+  - name: "Experiment Orchestrator & Auto-Kill"
+    includes: [INC-ALERT, INC-SCENARIO, INC-DECISION]
+    extends: [EXT-CRISIS]
+    owners: [Marketing, Exec_Strategy, Activation_Visualization]
+  - name: "DSAR / Privacy Request"
+    includes: [INC-AUTH, INC-CATALOG, INC-TOKEN, INC-DECISION]
+    extends: [EXT-RESIDENCY]
+    owners: [Privacy_First_Edge, All]
+  - name: "Risk/Twin Scenario Response"
+    includes: [INC-SCENARIO, INC-ALERT, INC-DECISION]
+    extends: [EXT-CRISIS]
+    owners: [Risk_DigitalTwin, Exec_Strategy, Operations_Supply]
+
+rankings:
+  by_impact: ["Replenish & Allocate Inventory","Deal/Plan Configuration & Approval","Collections & Cash Application","Promise Accuracy & Expectation Management","Launch Privacy-Safe Campaign","Resolve Customer Case with Action","DSAR / Privacy Request","Experiment Orchestrator & Auto-Kill","Data Quality Gate on Ingestion","Risk/Twin Scenario Response"]
+  by_ease: ["Data Quality Gate on Ingestion","Collections & Cash Application","Experiment Orchestrator & Auto-Kill","DSAR / Privacy Request","Resolve Customer Case with Action","Launch Privacy-Safe Campaign","Promise Accuracy & Expectation Management","Deal/Plan Configuration & Approval","Replenish & Allocate Inventory","Risk/Twin Scenario Response"]
+  by_delivery_risk: ["Data Quality Gate on Ingestion","DSAR / Privacy Request","Collections & Cash Application","Experiment Orchestrator & Auto-Kill","Resolve Customer Case with Action","Launch Privacy-Safe Campaign","Promise Accuracy & Expectation Management","Deal/Plan Configuration & Approval","Replenish & Allocate Inventory","Risk/Twin Scenario Response"]

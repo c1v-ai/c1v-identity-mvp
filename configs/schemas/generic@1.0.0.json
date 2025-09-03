@@ -1,0 +1,53 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Generic Business Data Schema",
+  "version": "1.0.0",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier"
+    },
+    "email": {
+      "type": "string",
+      "format": "email",
+      "pii": true
+    },
+    "phone": {
+      "type": "string",
+      "pattern": "^[\\d\\s\\-\\(\\)\\+]+$",
+      "pii": true
+    },
+    "first_name": {
+      "type": "string",
+      "pii": true
+    },
+    "last_name": {
+      "type": "string",
+      "pii": true
+    },
+    "address": {
+      "type": "string",
+      "pii": true
+    },
+    "city": {
+      "type": "string"
+    },
+    "region": {
+      "type": "string"
+    },
+    "postal": {
+      "type": "string",
+      "pii": true
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": ["id"]
+}

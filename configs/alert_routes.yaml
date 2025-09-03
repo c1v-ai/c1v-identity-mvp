@@ -1,0 +1,24 @@
+# Alert routing configuration
+slack_webhook: "https://hooks.slack.com/services/REDACTED"
+
+routes:
+  financial:
+    pager_primary: "fin-owner@company.com"
+    pager_secondary: "data-team@company.com"
+    slack_channel: "#data-quality-alerts"
+    escalate_after_minutes: 30
+    jira_project: "DQ"
+    
+  leads:
+    pager_primary: "mkt-owner@company.com"
+    pager_secondary: "data-team@company.com"
+    slack_channel: "#data-quality-alerts"
+    escalate_after_minutes: 30
+    jira_project: "DQ"
+    
+  sales:
+    pager_primary: "sales-owner@company.com"
+    pager_secondary: "data-team@company.com"
+    slack_channel: "#data-quality-alerts"
+    escalate_after_minutes: 30
+    jira_project: "DQ"
