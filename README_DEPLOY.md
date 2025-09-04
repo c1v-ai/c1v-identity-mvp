@@ -24,6 +24,13 @@
 ## Deploy
 Click Deploy. Streamlit installs requirements and starts the app.
 
+### Live app URL (example)
+If your app deploys under a generated subdomain, it will look like:
+
+```
+https://c1v-identity-mvp-meyapegxt3g6wxvpqpxjal.streamlit.app
+```
+
 ## Notes
 - `reports/` is ephemeral in Cloud; fine for MVP.
 - For persistence later, switch to object storage.
